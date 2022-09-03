@@ -23,19 +23,44 @@ class _CounterScreenState extends State<CounterScreen> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children:  [
-           const Text('Número de clicks', style: fontSize30),
-            Text('$count', style: fontSize30)
+            Text('Número de clicks $count', 
+              style: fontSize30),
+          
           ]
         ),
       ),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.add_circle),
-        onPressed:() {
-            count++;
-           setState(() {
-             
-           });
-        },
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+        children: [
+          FloatingActionButton(
+            child: const Icon(Icons.exposure_plus_1_outlined),
+            onPressed:() {
+                count++;
+               setState(() {
+                 
+               });
+            },
+          ),
+            FloatingActionButton(
+                child: const Icon(Icons.refresh_outlined),
+                onPressed:() {
+                    count = 0;
+                  setState(() {
+                    
+                  });
+                },
+              ),
+           FloatingActionButton(
+            child: const Icon(Icons.exposure_minus_1_outlined),
+            onPressed:() {
+                count--;
+               setState(() {
+                 
+               });
+            },
+          ),
+        ],
       ),
     );
   }

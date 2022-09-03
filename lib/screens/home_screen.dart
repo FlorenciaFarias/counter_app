@@ -26,7 +26,7 @@ class HomeScreen extends StatelessWidget{
         child: const Icon(Icons.add_circle),
         onPressed:() {
             count++;
-           print('$count');
+           //print('$count');
         },
       ),
     );
