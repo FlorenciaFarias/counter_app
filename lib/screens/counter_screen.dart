@@ -9,10 +9,22 @@ class CounterScreen extends StatefulWidget{
 
 class _CounterScreenState extends State<CounterScreen> {
   int count = 10;
+  void increase(){
+     setState( () => count++ );
+    }
+
+  void defaultIncrease(){
+     setState( () => count = 0 );
+    }
+
+  void decrease(){
+     setState( () => count-- );
+    }
   @override
   Widget build(BuildContext context) {
     
     const fontSize30 =  TextStyle(fontSize: 30);
+
     
     return  Scaffold(
       appBar: AppBar(
@@ -30,38 +42,46 @@ class _CounterScreenState extends State<CounterScreen> {
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
-          FloatingActionButton(
-            child: const Icon(Icons.exposure_plus_1_outlined),
-            onPressed:() {
-                count++;
-               setState(() {
-                 
-               });
-            },
-          ),
-            FloatingActionButton(
-                child: const Icon(Icons.refresh_outlined),
-                onPressed:() {
-                    count = 0;
-                  setState(() {
-                    
-                  });
-                },
-              ),
-           FloatingActionButton(
-            child: const Icon(Icons.exposure_minus_1_outlined),
-            onPressed:() {
-                count--;
-               setState(() {
-                 
-               });
-            },
-          ),
-        ],
+      floatingActionButton: CustomFloatingWidget(
+        increaseFunc: increase,
+        defaultIncreaseFunc: defaultIncrease,
+        decreaseFunc: decrease
       ),
+    );
+  }
+}
+
+class CustomFloatingWidget extends StatelessWidget {
+
+  final Function increaseFunc;
+  final Function defaultIncreaseFunc;
+  final Function decreaseFunc;
+
+  const CustomFloatingWidget({
+    Key? key, 
+    required this.increaseFunc, 
+    required this.defaultIncreaseFunc, 
+    required this.decreaseFunc,
+  }) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children:  [
+        FloatingActionButton(
+          child: const Icon(Icons.exposure_plus_1_outlined),
+          onPressed: () => increaseFunc(),
+        ),
+          FloatingActionButton(
+              child: const Icon(Icons.refresh_outlined),
+              onPressed: () => defaultIncreaseFunc(),
+       ),
+         FloatingActionButton(
+          child: const Icon(Icons.exposure_minus_1_outlined),
+          onPressed: () => decreaseFunc(),
+        ),
+      ],
     );
   }
 }
